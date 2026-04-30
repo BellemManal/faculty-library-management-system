@@ -14,7 +14,7 @@ session_start();
 $result = $conn->query("SELECT * FROM books");
 ?>
 
-<h2>📚 Books List</h2>
+<h2> Books List</h2>
 
 <a href="../dashboard.php">⬅ Back</a>
 <br><br>
@@ -40,7 +40,7 @@ $result = $conn->query("SELECT * FROM books");
             <a href="edit.php?id=<?= $row['id'] ?>">Edit</a> |
             <a href="delete.php?id=<?= $row['id'] ?>">Delete</a>
             <a href="../loans/borrow.php?book_id=<?= $row['id'] ?>">
-    📖 Borrow
+     Borrow
 </a>
         </td>
     </tr>
