@@ -8,15 +8,22 @@ if(!isset($_SESSION['user_id'])){
 
 include("../config/db.php");
 
-
 if($_SESSION['role'] != "librarian" && $_SESSION['role'] != "admin"){
     die("Access denied");
 }
 
 
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 5;
 $offset = ($page - 1) * $limit;
+
+
+$totalResult = $conn->query("SELECT COUNT(*) as total FROM books");
+$totalRow = $totalResult->fetch_assoc();
+$totalBooks = $totalRow['total'];
+
+$totalPages = ceil($totalBooks / $limit);
+
 
 $result = $conn->query("SELECT * FROM books LIMIT $limit OFFSET $offset");
 ?>
@@ -55,9 +62,13 @@ $result = $conn->query("SELECT * FROM books LIMIT $limit OFFSET $offset");
 <br>
 
 
-<a href="?page=1">1</a>
-<a href="?page=2">2</a>
+<?php for($i = 1; $i <= $totalPages; $i++): ?>
+    <a href="?page=<?= $i ?>" 
+       style="margin:5px; padding:5px; <?= ($i == $page) ? 'background:blue;color:white;' : '' ?>">
+        <?= $i ?>
+    </a>
+<?php endfor; ?>
 
 <br><br>
 
-<a href="add.php">➕ Add New Book</a>
+<a href="add.php"> Add New Book</a>
