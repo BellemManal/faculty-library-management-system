@@ -1,4 +1,13 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['user_id'])){
+    header("Location: auth/login.php");
+    exit();
+}
+?>
+
+<?php
 include("../config/db.php");
 session_start();
 
@@ -14,7 +23,7 @@ $book_id = $_GET['book_id'];
 $book = $conn->query("SELECT * FROM books WHERE id=$book_id")->fetch_assoc();
 
 if ($book['available_copies'] <= 0) {
-    die("❌ No copies available");
+    die(" No copies available");
 }
 
 
