@@ -37,3 +37,7 @@ if(isset($_POST['submit'])) {
 
     <button type="submit" name="submit">Add</button>
 </form>
+
+if($_SESSION['role'] != "librarian" && $_SESSION['role'] != "admin"){
+    die("Access denied");
+}
