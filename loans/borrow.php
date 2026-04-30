@@ -2,19 +2,11 @@
 session_start();
 
 if(!isset($_SESSION['user_id'])){
-    header("Location: auth/login.php");
-    exit();
-}
-?>
-
-<?php
-include("../config/db.php");
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
     exit();
 }
+
+include("../config/db.php");
 
 $user_id = $_SESSION['user_id'];
 $book_id = $_GET['book_id'];
@@ -22,7 +14,12 @@ $book_id = $_GET['book_id'];
 
 $book = $conn->query("SELECT * FROM books WHERE id=$book_id")->fetch_assoc();
 
-if ($book['available_copies'] <= 0) {
+if(!$book){
+    die("Book not found");
+}
+
+
+if($book['available_copies'] <= 0){
     die(" No copies available");
 }
 
@@ -38,15 +35,19 @@ if ($role == "faculty") {
 $borrow_date = date("Y-m-d");
 $due_date = date("Y-m-d", strtotime("+$days days"));
 
-if($book['available_copies'] <= 0){
-    die("❌ No copies available");
-}
-$conn->query("INSERT INTO loans (user_id, book_id, borrow_date, due_date)
-VALUES ($user_id, $book_id, '$borrow_date', '$due_date')");
+
+$conn->query("
+INSERT INTO loans (user_id, book_id, borrow_date, due_date)
+VALUES ($user_id, $book_id, '$borrow_date', '$due_date')
+");
 
 
-$conn->query("UPDATE books SET available_copies = available_copies - 1 WHERE id=$book_id");
+$conn->query("
+UPDATE books 
+SET available_copies = available_copies - 1 
+WHERE id=$book_id
+");
 
-header("Location: ../books/list.php");
+header("Location: ../books/view_books.php");
 exit();
 ?>
