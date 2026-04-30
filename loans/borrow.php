@@ -38,7 +38,9 @@ if ($role == "faculty") {
 $borrow_date = date("Y-m-d");
 $due_date = date("Y-m-d", strtotime("+$days days"));
 
-
+if($book['available_copies'] <= 0){
+    die("❌ No copies available");
+}
 $conn->query("INSERT INTO loans (user_id, book_id, borrow_date, due_date)
 VALUES ($user_id, $book_id, '$borrow_date', '$due_date')");
 
