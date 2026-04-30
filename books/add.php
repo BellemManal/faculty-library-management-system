@@ -2,13 +2,17 @@
 session_start();
 
 if(!isset($_SESSION['user_id'])){
-    header("Location: auth/login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
-?>
 
-<?php
+
+if($_SESSION['role'] != "librarian" && $_SESSION['role'] != "admin"){
+    die("❌ Access denied");
+}
+
 include("../config/db.php");
+
 
 if(isset($_POST['submit'])) {
 
@@ -37,7 +41,3 @@ if(isset($_POST['submit'])) {
 
     <button type="submit" name="submit">Add</button>
 </form>
-
-if($_SESSION['role'] != "librarian" && $_SESSION['role'] != "admin"){
-    die("Access denied");
-}
