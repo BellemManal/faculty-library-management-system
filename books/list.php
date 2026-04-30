@@ -30,6 +30,9 @@ $result = $conn->query("SELECT * FROM books");
         <td>
             <a href="edit.php?id=<?= $row['id'] ?>">Edit</a> |
             <a href="delete.php?id=<?= $row['id'] ?>">Delete</a>
+            <a href="../loans/borrow.php?book_id=<?= $row['id'] ?>">
+    📖 Borrow
+</a>
         </td>
     </tr>
     <?php endwhile; ?>
