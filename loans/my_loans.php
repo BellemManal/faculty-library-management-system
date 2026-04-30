@@ -2,14 +2,11 @@
 session_start();
 
 if(!isset($_SESSION['user_id'])){
-    header("Location: auth/login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
-?>
 
-<?php
 include("../config/db.php");
-session_start();
 
 $user_id = $_SESSION['user_id'];
 
@@ -21,9 +18,9 @@ WHERE user_id=$user_id
 ");
 ?>
 
-<h2>📄 My Loans</h2>
+<h2> My Loans</h2>
 
-<table border="1">
+<table border="1" cellpadding="10">
 <tr>
     <th>Book</th>
     <th>Borrow Date</th>
@@ -41,9 +38,11 @@ WHERE user_id=$user_id
 
     <td>
         <?php if($row['status'] == 'borrowed'): ?>
-        <a href="return.php?loan_id=<?= $row['id'] ?>">
-            🔄 Return
-        </a>
+            <a href="return.php?loan_id=<?= $row['id'] ?>">
+                 Return
+            </a>
+        <?php else: ?>
+             Returned
         <?php endif; ?>
     </td>
 </tr>
