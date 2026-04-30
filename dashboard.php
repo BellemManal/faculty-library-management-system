@@ -58,6 +58,7 @@ $role = $_SESSION['role'];
 
     <a href="books/list.php">📚 View Books</a>
     <a href="loans/my_loans.php">🔄 My Loans</a>
+    <a href="books/view_books.php">📚 View Books</a>
 
     <?php if ($role == "librarian" || $role == "admin"): ?>
         <a href="books/add.php">➕ Add Book</a>
