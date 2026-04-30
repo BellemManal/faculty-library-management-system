@@ -5,16 +5,6 @@ if(!isset($_SESSION['user_id'])){
     header("Location: auth/login.php");
     exit();
 }
-?>
-
-<?php
-session_start();
-
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: auth/login.php");
-    exit();
-}
 
 $name = $_SESSION['name'];
 $role = $_SESSION['role'];
@@ -58,26 +48,26 @@ $role = $_SESSION['role'];
 
 <div class="box">
 
-    <h1>Welcome, <?php echo $name; ?> 👋</h1>
+    <h1>Welcome, <?php echo $name; ?> </h1>
     <p><b>Role:</b> <?php echo $role; ?></p>
 
     <hr>
 
     <h3>Menu</h3>
 
-    <a href="books/list.php">📚 View Books</a>
-    <a href="loans/my_loans.php">🔄 My Loans</a>
-    <a href="books/view_books.php">📚 View Books</a>
+    <a href="books/view_books.php"> View Books</a>
+    <a href="loans/my_loans.php"> My Loans</a>
 
     <?php if ($role == "librarian" || $role == "admin"): ?>
-        <a href="books/add.php">➕ Add Book</a>
+        <a href="books/list.php"> Manage Books</a>
+        <a href="books/add.php"> Add Book</a>
     <?php endif; ?>
 
     <?php if ($role == "admin"): ?>
-        <a href="users/list_users.php">👤 Manage Users</a>
+        <a href="users/list.php"> Manage Users</a>
     <?php endif; ?>
 
-    <a class="logout" href="auth/logout.php">🚪 Logout</a>
+    <a class="logout" href="auth/logout.php"> Logout</a>
 
 </div>
 
