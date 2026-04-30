@@ -33,6 +33,9 @@ $result = $conn->query("SELECT * FROM books");
         <th>Actions</th>
     </tr>
 
+    <a href="?page=1">1</a>
+    <a href="?page=2">2</a>
+    
     <?php while($row = $result->fetch_assoc()): ?>
     <tr>
         <td><?= $row['title'] ?></td>
