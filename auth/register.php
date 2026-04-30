@@ -20,9 +20,9 @@ if (isset($_POST['register'])) {
     $stmt->bind_param("ssss", $name, $email, $hashed_password, $role);
 
     if ($stmt->execute()) {
-        $message = "✅ Registered successfully!";
+        $message = " Registered successfully!";
     } else {
-        $message = "❌ Error: Email already exists!";
+        $message = " Error: Email already exists!";
     }
 }
 ?>
