@@ -29,23 +29,29 @@ WHERE user_id=$user_id
     <th>Action</th>
 </tr>
 
-<?php while($row = $result->fetch_assoc()): ?>
-<tr>
-    <td><?= $row['title'] ?></td>
-    <td><?= $row['borrow_date'] ?></td>
-    <td><?= $row['due_date'] ?></td>
-    <td><?= $row['status'] ?></td>
+<?php if($result->num_rows > 0): ?>
+    <?php while($row = $result->fetch_assoc()): ?>
+    <tr>
+        <td><?= $row['title'] ?></td>
+        <td><?= $row['borrow_date'] ?></td>
+        <td><?= $row['due_date'] ?></td>
+        <td><?= $row['status'] ?></td>
 
-    <td>
-        <?php if($row['status'] == 'borrowed'): ?>
-            <a href="return.php?loan_id=<?= $row['id'] ?>">
-                 Return
-            </a>
-        <?php else: ?>
-             Returned
-        <?php endif; ?>
-    </td>
-</tr>
-<?php endwhile; ?>
+        <td>
+            <?php if($row['status'] == 'borrowed'): ?>
+                <a href="return.php?loan_id=<?= $row['id'] ?>">
+                     Return
+                </a>
+            <?php else: ?>
+                ✔ Returned
+            <?php endif; ?>
+        </td>
+    </tr>
+    <?php endwhile; ?>
+<?php else: ?>
+    <tr>
+        <td colspan="5">No loans found</td>
+    </tr>
+<?php endif; ?>
 
 </table>
