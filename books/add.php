@@ -1,4 +1,13 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['user_id'])){
+    header("Location: auth/login.php");
+    exit();
+}
+?>
+
+<?php
 include("../config/db.php");
 
 if(isset($_POST['submit'])) {
@@ -18,7 +27,7 @@ if(isset($_POST['submit'])) {
 }
 ?>
 
-<h2>➕ Add Book</h2>
+<h2> Add Book</h2>
 
 <form method="POST">
     Title: <input type="text" name="title"><br><br>
