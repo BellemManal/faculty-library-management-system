@@ -32,3 +32,7 @@ $result = $conn->query("SELECT * FROM users");
 </tr>
 <?php endwhile; ?>
 </table>
+
+if($_SESSION['role'] != "admin"){
+    die("Access denied");
+}
