@@ -41,3 +41,7 @@ if(isset($_POST['update'])) {
 
     <button type="submit" name="update">Update</button>
 </form>
+
+if($_SESSION['role'] != "librarian" && $_SESSION['role'] != "admin"){
+    die("Access denied");
+}
