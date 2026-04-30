@@ -11,6 +11,10 @@ if(!isset($_SESSION['user_id'])){
 include("../config/db.php");
 session_start();
 
+if($_SESSION['role'] != "librarian" && $_SESSION['role'] != "admin"){
+    die("Access denied");
+}
+
 $result = $conn->query("SELECT * FROM books");
 ?>
 
@@ -48,4 +52,4 @@ $result = $conn->query("SELECT * FROM books");
 </table>
 
 <br>
-<a href="add.php">➕ Add New Book</a>
+<a href="add.php"> Add New Book</a>
