@@ -2,20 +2,23 @@
 session_start();
 
 if(!isset($_SESSION['user_id'])){
-    header("Location: auth/login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
-?>
 
-<?php
 include("../config/db.php");
+
+
+if($_SESSION['role'] != "admin"){
+    die(" Access denied");
+}
 
 $result = $conn->query("SELECT * FROM users");
 ?>
 
 <h2> Users List</h2>
 
-<table border="1">
+<table border="1" cellpadding="10">
 <tr>
     <th>Name</th>
     <th>Email</th>
@@ -28,11 +31,10 @@ $result = $conn->query("SELECT * FROM users");
     <td><?= $row['name'] ?></td>
     <td><?= $row['email'] ?></td>
     <td><?= $row['role'] ?></td>
-    <td><?= $row['active'] ?></td>
+
+    <td>
+        <?= $row['active'] == 1 ? "Active" : "Inactive" ?>
+    </td>
 </tr>
 <?php endwhile; ?>
 </table>
-
-if($_SESSION['role'] != "admin"){
-    die("Access denied");
-}
