@@ -14,7 +14,12 @@ $loan_id = $_GET['loan_id'];
 $loan = $conn->query("SELECT * FROM loans WHERE id=$loan_id")->fetch_assoc();
 
 if(!$loan){
-    die("Loan not found");
+    die(" Loan not found");
+}
+
+
+if($loan['status'] != 'borrowed'){
+    die(" Already returned");
 }
 
 
